@@ -153,6 +153,16 @@
 	}
 
 
+	TEST(TDDKata, NexLineTwoArgsTest) {
+		std::string arg = "1\n2";
+		auto expected = 3;
+		Calculator calc;
+
+		auto result = calc.Add(arg);
+		ASSERT_EQ(expected, result);
+	}
+
+
 	TEST(TDDKata, NexLineArgsTest) {
 		std::string arg = "1\n2,3";
 		auto expected = 6;
