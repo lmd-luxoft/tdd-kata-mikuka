@@ -32,12 +32,14 @@ public:
 	int Add(char* expression);
 
 private:
-	void ParseArgs(const std::string &);
 	bool IsPositive();
-	ErrorCode_e CheckArguments(const std::string&);
+	std::string GetCustomToken(const std::string &);
+	ErrorCode_e CheckTokens(const std::string &);
+	Calculator::ErrorCode_e GetNumeric();
 
 	ErrorCode_e error_code;
 	std::vector<int> numeric;
-	const std::string tokens[2] = {",", "\n"};
+	std::map<size_t, std::string> args;
+	std::vector<std::string> tokens;
 };
 
