@@ -151,3 +151,24 @@
 		auto result = calc.Add(arg);
 		ASSERT_EQ(expected, result);
 	}
+
+
+	TEST(TDDKata, NexLineArgsTest) {
+		std::string arg = "1\n2,3";
+		auto expected = 6;
+		Calculator calc;
+
+		auto result = calc.Add(arg);
+		ASSERT_EQ(expected, result);
+	}
+
+
+	TEST(TDDKata, IncorrectNexLineArgsTest) {
+		std::string arg = "1,\n";
+		auto expected = -4;
+		Calculator calc;
+
+		auto result = calc.Add(arg);
+		ASSERT_EQ(expected, result);
+	}
+	
