@@ -116,7 +116,8 @@ Calculator::ErrorCode_e Calculator::CheckTokens(const std::string& str) {
         for (auto &token : tokens) {
             size_t pos = str.find(token, offset);
             if (pos && pos != std::string::npos && pos != UINT32_MAX) {
-                args.insert(std::pair<size_t, std::string>(pos, str.substr(++pos)));
+                pos += token.length();
+                args.insert(std::pair<size_t, std::string>(pos, str.substr(pos)));
                 exit_flag = true;
             }
         }
