@@ -32,9 +32,12 @@ public:
 	int Add(char* expression);
 
 private:
-	std::vector<int> GetArgs(const std::string &);
-	bool IsDigit(std::string);
+	void ParseArgs(const std::string &);
+	bool IsPositive();
+	ErrorCode_e CheckArguments(const std::string&);
 
 	ErrorCode_e error_code;
+	std::vector<int> numeric;
+	const std::string token = {","};
 };
 

@@ -9,26 +9,25 @@ Calculator::Calculator()
 
 }
 
+
 int Calculator::Add(std::string expression) {
     int result = 0;
 
     if (expression.length()) {
-        std::vector<int> args = GetArgs(expression);
-        result = error_code;
-
+        error_code = CheckArguments(expression);
         if (error_code == NO_ERROR) {
-            for (auto& digit : args) {
-                if (digit < 0) {
-                    result = error_code = NEGATIVE_ARGS;
-                    break;
-                }
-            }
+            ParseArgs(expression);
 
             if (error_code == NO_ERROR) {
-                result = args[0];
-                if (args.size() > 1)
-                    result = args[0] + args[1];
+                if (IsPositive()) {
+                    for (auto& n : numeric)
+                        result += n;
+                } else {
+                    result = NEGATIVE_ARGS;
+                }
             }
+        } else {
+            result = error_code;
         }
     }
 
@@ -41,52 +40,54 @@ int Calculator::Add(char* expression) {
 }
 
 
-std::vector<int> Calculator::GetArgs(const std::string& str) {
-    enum { MAX_SEPARATORS = 1 };
-    const std::string token = ",";
-    std::vector<int> digit;
+void Calculator::ParseArgs(const std::string& str) {
+    enum {MAX_SEPARATORS = 1};
 
     try {
-        digit.push_back(std::stoi(str));
+        size_t token_pos = 0;
+        std::string second = str;
 
-        uint32_t token_pos = str.find(token);
-        if (token_pos != UINT32_MAX) {
-            std::string second = str.substr(++token_pos);
-            digit.push_back(std::stoi(second));
-
-            if (second.find(token) != std::string::npos)
-                error_code = ARGS_EXCEEDED;
-        } else {
-            for (auto &c : str) {
-                if (std::ispunct(c)) {
-                    if (c == '-')
-                        break;
-                    error_code = TOKEN_ERROR;
-                    break;
-                }
-
-                if (std::isalpha(c)) {
-                    error_code = SYMBOL_ARGS;
-                    break;
-                }
-            }
-        }
+        do {
+            numeric.push_back(std::stoi(second));
+            token_pos = second.find(token);
+            second = second.substr(++token_pos);
+        } while (token_pos != 0);
     }
+
     catch (const std::invalid_argument& exc) {
         error_code = ARGS_EXCEEDED;
-
-        for (auto& c : str) {
-            if (std::isalpha(c)) {
-                error_code = SYMBOL_ARGS;
-                break;
-            }
-        }
     }
-
-    return digit;
 }
 
 
-bool CalculatorIsDigit(std::string args) {
-    return true;
+bool Calculator::IsPositive() {
+    bool result = true;
+
+    for (auto& n : numeric) {
+        if (n < 0) {
+            result = false;
+            break;
+        }
+    }
+
+    return result;
+}
+
+
+Calculator::ErrorCode_e Calculator::CheckArguments(const std::string& str) {
+    ErrorCode_e result = NO_ERROR;
+
+    for (auto &c : str) {
+        if (std::ispunct(c)) {
+            if (c == '-' || c == *token.data())
+                continue;
+            result = TOKEN_ERROR;
+            break;
+        } else if (std::isdigit(c) == false) {
+            result = SYMBOL_ARGS;
+            break;
+        }
+    }
+
+    return result;
 }
