@@ -181,4 +181,44 @@
 		auto result = calc.Add(arg);
 		ASSERT_EQ(expected, result);
 	}
+
+
+	TEST(TDDKata, Token0Test) {
+		std::string arg = "//;\n2;3";
+		auto expected = 5;
+		Calculator calc;
+
+		auto result = calc.Add(arg);
+		ASSERT_EQ(expected, result);
+	}
+
+
+	TEST(TDDKata, Token1Test) {
+		std::string arg = "//$\n2$3";
+		auto expected = 5;
+		Calculator calc;
+
+		auto result = calc.Add(arg);
+		ASSERT_EQ(expected, result);
+	}
+
+
+	TEST(TDDKata, Token2Test) {
+		std::string arg = "//;\n2,3,5";
+		auto expected = 10;
+		Calculator calc;
+
+		auto result = calc.Add(arg);
+		ASSERT_EQ(expected, result);
+	}
+
+
+	TEST(TDDKata, Token3Test) {
+		std::string arg = "//;\n2\n3\n5";
+		auto expected = 10;
+		Calculator calc;
+
+		auto result = calc.Add(arg);
+		ASSERT_EQ(expected, result);
+	}
 	
