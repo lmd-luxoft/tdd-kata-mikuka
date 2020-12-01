@@ -12,6 +12,7 @@ public:
 	enum ErrorCode_e {
 		NO_ERROR = 0,
 		NEGATIVE_ARGS = -1,
+		SYMBOL_ARGS = -2,
 		TOKEN_ERROR = -3,
 		ARGS_EXCEEDED = -4,
 	};
