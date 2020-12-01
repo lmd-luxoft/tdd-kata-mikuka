@@ -133,9 +133,19 @@
 	}
 
 
-	TEST(TDDKata, ThreeArgsTest) {
+	TEST(TDDKata, VariableArgsTest) {
 		std::string arg = "0,1,2";
-		auto expected = -4;
+		auto expected = 3;
+		Calculator calc;
+
+		auto result = calc.Add(arg);
+		ASSERT_EQ(expected, result);
+	}
+
+
+	TEST(TDDKata, Variable2ArgsTest) {
+		std::string arg = "0,1,2,10,100";
+		auto expected = 113;
 		Calculator calc;
 
 		auto result = calc.Add(arg);
