@@ -221,4 +221,15 @@
 		auto result = calc.Add(arg);
 		ASSERT_EQ(expected, result);
 	}
+
+
+	TEST(TDDKata, Token4Test) {
+		std::string arg = "//***\n1***2***3";
+		auto expected = 6;
+		Calculator calc;
+
+		auto result = calc.Add(arg);
+		ASSERT_EQ(expected, result);
+	}
+
 	
