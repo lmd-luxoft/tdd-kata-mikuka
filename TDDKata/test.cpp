@@ -3,12 +3,6 @@
 #include <string>
 
 
-	TEST(TDDKata, TestName) {
-		ASSERT_EQ(1, 1);
-		ASSERT_TRUE(true);
-	}
-
-
 	TEST(TDDKata, EmptyArgsTest) {
 		std::string arg = "";
 		auto expected = 0;
