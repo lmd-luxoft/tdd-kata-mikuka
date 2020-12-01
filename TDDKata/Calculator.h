@@ -38,6 +38,6 @@ private:
 
 	ErrorCode_e error_code;
 	std::vector<int> numeric;
-	const std::string token = {","};
+	const std::string tokens[2] = {",", "\n"};
 };
 

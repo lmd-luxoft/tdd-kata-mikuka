@@ -49,7 +49,7 @@ void Calculator::ParseArgs(const std::string& str) {
 
         do {
             numeric.push_back(std::stoi(second));
-            token_pos = second.find(token);
+            token_pos = std::min(second.find(tokens[0]), second.find(tokens[1]));
             second = second.substr(++token_pos);
         } while (token_pos != 0);
     }
@@ -77,15 +77,29 @@ bool Calculator::IsPositive() {
 Calculator::ErrorCode_e Calculator::CheckArguments(const std::string& str) {
     ErrorCode_e result = NO_ERROR;
 
+    bool prev_token = false;
     for (auto &c : str) {
-        if (std::ispunct(c)) {
-            if (c == '-' || c == *token.data())
-                continue;
-            result = TOKEN_ERROR;
-            break;
-        } else if (std::isdigit(c) == false) {
-            result = SYMBOL_ARGS;
-            break;
+        if (c == '-') {
+            continue;
+        } else {
+            if (c == *tokens[0].data() || c == *tokens[1].data()) {
+                if (prev_token == true) {
+                    result = ARGS_EXCEEDED;
+                    break;
+                }
+                prev_token = true;
+            } else {
+                prev_token = false;
+
+                if (std::ispunct(c)) {
+                    result = TOKEN_ERROR;
+                    break;
+                }
+                else if (std::isdigit(c) == false) {
+                    result = SYMBOL_ARGS;
+                    break;
+                }
+            }
         }
     }
 
