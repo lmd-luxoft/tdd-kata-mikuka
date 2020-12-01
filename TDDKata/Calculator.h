@@ -5,6 +5,7 @@
 /// </summary>
 class Calculator
 {
+public:
 	/// <summary>
 	/// Sum of elements expression
 	/// </summary>
