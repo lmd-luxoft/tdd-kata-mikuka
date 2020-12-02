@@ -1,5 +1,7 @@
 #pragma once
 #include "TestFixture.h"
+#include <tuple>
+
 
 struct Param {
     std::string op;
@@ -11,7 +13,7 @@ struct Param {
 };
 
 
-class TextFixtureWithParam : public TestFixture, public ::testing::WithParamInterface<Param>
+class TextFixtureWithParam : public TestFixture, public ::testing::WithParamInterface<std::tuple<std::string, int>>
 {
 };
 

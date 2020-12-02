@@ -6,8 +6,8 @@
 
 
 TEST_P(TextFixtureWithParam, AddTest) {
-	std::string arg = GetParam().op;
-	auto expected = GetParam().expected;
+	std::string arg = std::get<0>(GetParam());
+	auto expected = std::get<1>(GetParam());
 
 	auto result = calc->Add(arg);
 	ASSERT_EQ(expected, result);
