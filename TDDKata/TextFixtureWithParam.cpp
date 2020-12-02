@@ -12,9 +12,6 @@
 std::vector<std::tuple<std::string, int>> CreateParametersSet() {
     std::vector<std::tuple<std::string, int>> param;
 
-    
-
-        //std::get<0>(GetParam())
     param.push_back(std::make_tuple("1", 1));
     param.push_back(std::make_tuple("-999", -1));
     param.push_back(std::make_tuple("0,2", 2));
